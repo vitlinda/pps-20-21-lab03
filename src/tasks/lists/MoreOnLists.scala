@@ -16,4 +16,6 @@ object MoreOnLists {
     case _ => List.Nil()
   }
 
+  def mapInTermsOfFlat[A,B](l: List[A])(mapper: A => B): List[B] = flatMap(l)(x => List.Cons(mapper(x), List.Nil()))
+
 }

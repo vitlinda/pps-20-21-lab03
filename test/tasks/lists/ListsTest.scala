@@ -20,4 +20,10 @@ class ListsTest {
     assertEquals(List.Cons(11, List.Cons(21, List.Cons(31, List.Nil()))), MoreOnLists.flatMap(l)(v => List.Cons(v+1, List.Nil())))
     assertEquals(List.Cons(11, List.Cons(12, List.Cons(21, List.Cons(22, List.Cons(31, List.Cons(32, List.Nil())))))), MoreOnLists.flatMap(l)(v => List.Cons(v+1, List.Cons(v+2, List.Nil()))))
   }
+
+  @Test def mapInTermsOfFlatMapTest(){
+    val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
+    assertEquals(List.Cons(false, List.Cons(true, List.Cons(true, List.Nil()))), MoreOnLists.mapInTermsOfFlat(l)(_ > 10))
+    assertEquals(List.Cons(11, List.Cons(21, List.Cons(31, List.Nil()))), MoreOnLists.mapInTermsOfFlat(l)(_ + 1))
+  }
 }
