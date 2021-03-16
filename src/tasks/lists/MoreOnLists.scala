@@ -18,4 +18,10 @@ object MoreOnLists {
 
   def mapInTermsOfFlat[A,B](l: List[A])(mapper: A => B): List[B] = flatMap(l)(x => List.Cons(mapper(x), List.Nil()))
 
+  def filterInTermsOfFlat[A](l1: List[A])(pred: A => Boolean): List[A] = l1 match {
+    case List.Cons(h, t) if (pred(h)) => flatMap(List.Cons(h, filterInTermsOfFlat(t)(pred)))(v => List.Cons(v, List.Nil()))
+    case List.Cons(_, t) => filterInTermsOfFlat(t)(pred)
+    case _ => List.Nil()
+  }
+
 }
