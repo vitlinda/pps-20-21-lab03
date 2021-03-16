@@ -8,7 +8,7 @@ import u02.Optionals._
 import u02.Optionals.Option._
 
 
-class ListsTest {
+class MoreOnListsTest {
 
   @Test def testDrop(){
     val l = Cons(10, Cons(20, Cons(30, Nil())))
