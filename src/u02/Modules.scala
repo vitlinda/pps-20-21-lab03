@@ -1,6 +1,6 @@
 package u02
 
-object Modules extends App {
+object Modules{
 
   // An ADT: type + module
   sealed trait Person
