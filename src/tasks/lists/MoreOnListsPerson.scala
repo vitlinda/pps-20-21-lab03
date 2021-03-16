@@ -12,5 +12,4 @@ object MoreOnListsPerson {
     case _ => Nil()
   })
 
-
 }
