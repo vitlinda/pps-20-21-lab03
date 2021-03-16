@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
 import u03.Lists._
 import u03.Lists.List._
+import u02.Optionals._
+import u02.Optionals.Option._
 
 
 class ListsTest {
@@ -31,6 +33,16 @@ class ListsTest {
   @Test def filterInTermsOfFlatMapTest(){
     val l = Cons(10, Cons(20, Cons(30, Nil())))
     assertEquals(Cons(20, Cons(30, Nil())), MoreOnLists.filterInTermsOfFlat(l)(_ >= 20))
+  }
+
+  @Test def maxTest(){
+    val l = Cons(10, Cons(25, Cons(20, Nil())))
+    assertEquals(Some(25), MoreOnLists.max(l))
+
+    val l1 = Cons(10, Cons(20, Cons(30, Nil())))
+    assertEquals(Some(30), MoreOnLists.max(l1))
+
+    assertEquals(None(), MoreOnLists.max(Nil()))
   }
 
 
