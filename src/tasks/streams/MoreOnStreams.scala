@@ -46,6 +46,8 @@ object MoreOnStreams {
       case _ => Empty()
     }
 
+    def constant[A](k: A): Stream[A] = cons(k, constant(k))
+
 
   }
 
