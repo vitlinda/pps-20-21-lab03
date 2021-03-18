@@ -38,16 +38,31 @@ object MoreOnStreams {
       case _ => Empty()
     }
 
-    def iterate[A](init: => A)(next: A => A): Stream[A] = cons(init, iterate(next(init))(next))
+    def takeWhile[A](stream: Stream[A])(pred: A => Boolean): Stream[A] = stream match {
+      case Cons(fh,ft) if (pred(fh()))=> cons(fh(),takeWhile(ft())(pred))
+      case _ => empty()
+    }
+
+    def peek[A](stream: Stream[A])(exec: A => Unit): Stream[A] = map(stream)(x => {exec(x);x})
+
+    def fold[A, B](stream: Stream[A])(base: => B)(op: (A, B) => B): B = stream match {
+      case Cons(fh,ft) => op(fh(),fold(ft())(base)(op))
+      case Empty() => base
+    }
+
+    def iterate[A](seed: => A)(next: A => A): Stream[A] = cons(seed, iterate(next(seed))(next))
+
+    def generate[A](elem: => A): Stream[A] = iterate(elem)(x=>x)
 
     def drop[A](stream: Stream[A])(n: Int): Stream[A] = (stream, n) match {
-      case (Cons(h, tail), n) if n > 0 => drop(tail())(n - 1)
+      case (Cons(_, tail), n) if n > 0 => drop(tail())(n - 1)
       case (Cons(head, t), _) => cons(head(), t())
       case _ => Empty()
     }
 
     def constant[A](k: A): Stream[A] = cons(k, constant(k))
 
+    def fibs: Stream[Int] =  cons(0, cons(1, iterate(fibs)(n => ???)))
 
   }
 
