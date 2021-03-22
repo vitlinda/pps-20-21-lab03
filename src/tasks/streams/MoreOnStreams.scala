@@ -62,7 +62,12 @@ object MoreOnStreams {
 
     def constant[A](k: A): Stream[A] = cons(k, constant(k))
 
-    def fibs: Stream[Int] =  cons(0, cons(1, iterate(???)(x => ???)))
+    def fibs: Stream[Int] = {
+      def _fibs(x1: Int, x2: Int): Stream[Int] = {
+         cons(x1, _fibs(x2, x1 + x2))
+      }
+      _fibs(0,1)
+    }
 
   }
 
